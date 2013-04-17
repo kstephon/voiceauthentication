@@ -1,0 +1,115 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.StringTokenizer;
+import java.util.Vector;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+
+public class InsertData{
+
+  public static void main(String args[]){
+  	String line;
+  	Vector<String> rowData = new Vector<String>(3,1);
+  	Vector<Vector<String>> dataVector = new Vector<Vector<String>>(1);
+  	try {
+              FileInputStream fis = new FileInputStream("Password.txt");
+              BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+            
+              while ((line = br.readLine()) != null) {
+                      StringTokenizer st2 = new StringTokenizer(line, " ");
+                      
+                      while (st2.hasMoreTokens())
+
+                        rowData.addElement(st2.nextToken());
+              }
+                      { rowData.trimToSize();
+                      }
+              br.close();
+              }
+       catch (Exception e) {
+              e.printStackTrace();
+      }
+
+  	Vector<String> data = new Vector<String>(3);
+  	Vector<String> data1 = new Vector<String>(3);
+  	Vector<String> data2 = new Vector<String>(3);
+
+  	data.add("Space");
+  	data.add("Space");
+  	data.add("Space");	
+  	data1.add("1Space");
+  	data1.add("1Space");
+  	data1.add("1Space");
+  	data2.add("2Space");
+  	data2.add("2Space");
+  	data2.add("2Space");
+  	dataVector.add(data);
+  	dataVector.add(data1);
+  	dataVector.add(data2);
+  	int i = 0; int j = 1; int k = 2; int p = 0;
+  	for(int h = 0; h<rowData.size();h++){
+  	if(h==rowData.size()){
+  		break;
+  	}
+  	
+  	data.set(0,rowData.elementAt(i));
+  	h++; 
+  	data.set(1,rowData.elementAt(j));
+  	h++; 
+  	data.set(2,rowData.elementAt(k));
+  	dataVector.setElementAt((data), p);	
+  	p++;
+  	i = i+3;
+  	j = j+3;
+  	k = k+3;
+  	data1.set(0,rowData.elementAt(i));
+  	data1.set(1,rowData.elementAt(j));
+  	data1.set(2,rowData.elementAt(k));
+  	dataVector.setElementAt((data1), p);
+  	p++;
+  	i = i+3;
+  	j = j+3;
+  	k = k+3;
+  	data2.set(0,rowData.elementAt(i));
+  	data2.set(1,rowData.elementAt(j));
+  	data2.set(2,rowData.elementAt(k));
+  	dataVector.setElementAt((data2), p);		
+
+  	p++;
+  	h++;
+  	i = i+3;
+  	j = j+3;
+  	k = k+3;
+  	
+  	if(p ==3 ){
+  		break;}
+
+  	}
+  	
+  	Vector<String> columnNames = new Vector<String>(3);
+  	columnNames.addElement("Website");
+  	columnNames.addElement("Username");
+  	columnNames.addElement("Password");
+  	//System.out.println(dataVector);
+  	DefaultTableModel model = new DefaultTableModel(dataVector, columnNames);
+  	 JTable table = new JTable();
+          table.setModel(model);
+          JScrollPane scrollpane = new JScrollPane(table);
+          JPanel panel = new JPanel();
+          panel.add(scrollpane);
+          JFrame frame = new JFrame();
+          frame.add(panel, "Center");
+          frame.pack();
+          frame.setVisible(true);
+  }
+}
